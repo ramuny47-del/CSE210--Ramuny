@@ -40,5 +40,10 @@ class Program
         {
             Console.WriteLine("You have passed!");
         }
+        else
+            {
+                Console.WriteLine("Unfortunately, You failed but You can always retake the class!");
+            }
+        
     }
 }
