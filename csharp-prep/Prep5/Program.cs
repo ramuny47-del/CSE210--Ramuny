@@ -50,8 +50,8 @@ class Program
     static void DisplayResult(string name, int birthday, int number )
     {
         int age = 2026 - birthday;
-        Console.WriteLine(name + "," + "The square of your number is " + number);
-        Console.WriteLine(name + "," + "You will turn " + age + " his year.");
+        Console.WriteLine(name + "," + "The square of your number is " + number +".");
+        Console.WriteLine(name + "," + "You will turn " + age + " this year.");
 
     }
 }
