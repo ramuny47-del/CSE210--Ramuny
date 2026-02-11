@@ -53,7 +53,7 @@ while (true)
         }
 
 else{
-        Reference reference = new Reference("John", 3, 16,2
+        Reference reference = new Reference("Proverbs", 3, 5,0
         );
 Hidden hidden = new Hidden(
     "Trust in the Lord with all thine heart and lean not unto thine own understanding."
