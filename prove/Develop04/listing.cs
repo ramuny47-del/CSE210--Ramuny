@@ -53,6 +53,7 @@ public class Listing_ : Activity
             foreach (string item in _item){
             Console.Write(item);
             Console.Write("  ");
+            DisplayEndingMessage();
             }}
     else
     {
