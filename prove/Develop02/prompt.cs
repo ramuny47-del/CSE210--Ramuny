@@ -1,6 +1,6 @@
 public class Prompt
 {
-    public string prompt_select()
+    public string PromptSelect()
     {
         List<string> prompt = new List<string> {"What did I do today that actaully moved my life forward?",
         "What drained my energy today that actually moved my life forward?", 
