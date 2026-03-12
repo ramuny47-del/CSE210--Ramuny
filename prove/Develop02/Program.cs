@@ -11,14 +11,15 @@ public class Program
 
         string userInput = "0";
 
-        while (userInput != "5")
+        while (userInput != "6")
         {
             Console.WriteLine("What do you want to do?");
             Console.WriteLine("1. Write");
             Console.WriteLine("2. Save");
             Console.WriteLine("3. Load");
             Console.WriteLine("4. Display");
-            Console.WriteLine("5. Quit");
+            Console.WriteLine("5. Random entry");
+            Console.WriteLine("6. Quit");
 
             userInput = Console.ReadLine();
 
@@ -52,6 +53,10 @@ public class Program
             else if (userInput == "4")
             {
                 journal.Display();
+            }
+            else if (userInput == "5")
+            {
+                journal.DisplayRandomEntry();
             }
         }
     }
