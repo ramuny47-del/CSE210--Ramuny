@@ -1,4 +1,5 @@
 using System;
+using System.Data.Common;
 using System.IO.Enumeration;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
@@ -10,37 +11,57 @@ class Program
         Console.WriteLine("Hello Develop05 World!");
 
         List<Goal> goals = new List<Goal>();
+        List<Skill> skills = new List<Skill>();
+        List<DailyHabit> Habits = new List<DailyHabit>();
         int totalPoints = 0;
         int level = 1;
         int PointNeeded = 0;
+        string title = "Unkown";
+
+
+    
+       
+        
+       
         
 
         while (true)
-        {   Console.WriteLine($"Level: {level} Points: {totalPoints}/{PointNeeded}");
+        {    Level Levelup = new Level(level);
+        title = Levelup.GetTitle();
+            Console.WriteLine($"Level: {level} Title: {title} Points: {totalPoints}/{PointNeeded}");
+            Console.WriteLine();
             Console.WriteLine("What Do you want to do?");
+            Console.WriteLine();
             Console.WriteLine("0. Clear the Terminal & Update Level");
+            Console.WriteLine();
             Console.WriteLine("1. Make a new goal");
-            Console.WriteLine("2. Display list of goals");
-            Console.WriteLine("3. Record a goal event");
+            Console.WriteLine();
+            Console.WriteLine("2. Display");
+            Console.WriteLine();
+            Console.WriteLine("3. Record an event");
+            Console.WriteLine();
             Console.WriteLine("4. Save Goals to file");
+            Console.WriteLine();
             Console.WriteLine("5. Load goals from file");
+            Console.WriteLine();
             Console.WriteLine("6. Display total Point");
-            Console.WriteLine("7. Quit");
+            Console.WriteLine();
+            Console.WriteLine("7. Add Skill");
+            Console.WriteLine();
+            Console.WriteLine("8. Add Daily Habit");
+            Console.WriteLine();
+            Console.WriteLine("9. Quit");
 
             string choice = Console.ReadLine();
-            if (level >= 1 && level <= 1000)
-        {
-            Level Levelup = new Level(level);
+
             PointNeeded = Levelup.PointNeededtoLevelUp();
+            double TotalPointsDouble = totalPoints;
+            double levelCalculation = TotalPointsDouble / 783;
 
-        }
-        double TotalPointsDouble = (double)totalPoints;
-        double levelCalculation = TotalPointsDouble / 783;
-
-        if (levelCalculation > level)
-        {
+            if (levelCalculation > level)
+            {
             level++;
-        }
+            }
 
             if (choice == "0")
             {
@@ -91,18 +112,57 @@ class Program
             else if (choice == "2")
                 {
                     Console.Clear();
+                    Console.WriteLine("1. Display Goals");
+                    Console.WriteLine("2. Display Skills");
+                    Console.WriteLine("3. Display Daily Habits");
+
+                    string input = Console.ReadLine();
+
+                    if (input == "1"){
+                    Console.Clear();
                     foreach(Goal goal in goals)
                     {   Console.WriteLine();
                         Console.WriteLine("---------- Goals ----------");
                         goal.Display();
                     }
                     Console.WriteLine();
+                    Console.WriteLine();}
+
+                    else if (input == "2")
+                {
+                    Console.Clear();
+                    Console.WriteLine("------------- Skills --------------");
                     Console.WriteLine();
+                    foreach(Skill skill in skills)
+                    {
+                        Console.WriteLine();
+                        skill.Display();
+                    }
+
+                    Console.WriteLine();
+                }
+                    else if(input == "3")
+                {
+                    Console.Clear();
+                    Console.WriteLine("-------------- Daily Habits ---------------");
+                    foreach(DailyHabit habit in Habits)
+                    {
+                        Console.WriteLine();
+                        habit.Display();
+                    }
+                    Console.WriteLine();
+                }
                 }
             
             else if (choice == "3")
                 {   Console.Clear();
-                    int i = 1;
+                    Console.WriteLine("1. Gaols");
+                    Console.WriteLine("2. Daily Habits");
+                    string input = Console.ReadLine();
+
+                    if(input == "1")
+                {
+                     int i = 1;
                     foreach(Goal goal in goals)
                     {
                         Console.WriteLine("---------- Goals ----------");
@@ -127,6 +187,37 @@ class Program
                         {
                             Console.WriteLine("Invalid selection");
                         }
+                }
+                    if(input == "2")
+                {
+                    int i = 1;
+                    foreach(DailyHabit habit in Habits)
+                    {
+                        Console.WriteLine("------------Daily Habits ---------------");
+                        Console.WriteLine();
+                        Console.WriteLine($"Habit Index: {i}");
+                        i++;
+                        habit.Display();
+    
+                    }
+                    Console.WriteLine();
+                    Console.WriteLine("Select Habit Number to record: ");
+                    int index = int.Parse(Console.ReadLine()) -1;
+                    if (index >= 0 && index < Habits.Count)
+                    {
+                        Habits[index].Complete();
+                        Habits[index].Penalty();
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid Selection");
+                    }
+                    
+
+                }
+
+                   
                     }
                     
                 
@@ -165,8 +256,48 @@ class Program
                 Console.WriteLine();
                 Console.WriteLine();
             }
-
             if (choice == "7")
+            {
+                Console.Clear();
+                Console.Write("Skill Name:  ");
+                string skill = Console.ReadLine();
+                Skill NewSkill = new Skill(skill, 0, 1);
+                skills.Add(NewSkill);
+            }
+
+            if (choice == "8")
+            {
+                Console.Clear();
+                Console.Write("Habit Name: ");
+                string habitName = Console.ReadLine();
+                Console.Write("XP per completion: ");
+                int habitXP =int.Parse(Console.ReadLine());
+
+                 int i = 1;
+                    foreach(Skill skill in skills)
+                    {
+                        Console.WriteLine("---------- Skills ----------");
+                        Console.WriteLine($"Skill Index: {i}");
+                        skill.Display();
+                        i++;
+                   }
+                Console.WriteLine("Skill, the habit tied to: ");
+                     int index = int.Parse(Console.ReadLine()) -1;
+                     if (index >= 0 && index < skills.Count)
+                        {
+                            Skill LinkedSkill = skills[index];
+                            DailyHabit habit = new DailyHabit(habitName,LinkedSkill, habitXP );
+                            Habits.Add(habit);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid selection");
+                        }
+
+
+                
+            }
+            if (choice == "9")
             {
                 break;
             }}}}
